@@ -17,28 +17,38 @@ private:
         Node* prev;
         // Pointer to a ndoe that is one element in-front of the current node 
         Node* next;
-        // COME BACK
+
+        // A parameter constructor for the Node struct
+        // if the user fills in values upon creation of Node struct - the values will populate in data, prev, or next 
+        // if p and n are left empty the values will be nullptr
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
             data = val; 
             prev = p;
             next = n;
         }
     };
-
+    // creating private class members
+    // pointers to a node that will serve as the head (beginning) & tail (ending) of the doubly linked list
     Node* head;
     Node* tail;
 
 public:
+    // Default constructor - when a DoublyLinkList object is created head and tail will point to nullptr
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
-
+    
+    // insert_after function: return nothing but takes two integer values
+    // Purpose: insert a node after the position the user enters with a value the user enters in the node
     void insert_after(int value, int position) {
+        // validation that position is not negative 
         if (position < 0) {
             cout << "Position must be >= 0." << endl;
             return;
         }
-
+        // Dynamically allocating a new instance of Node struct 
         Node* newNode = new Node(value);
+        // If head is not true - there are no elements in DLL 
         if (!head) {
+            // assign head and tail to newNode to serve as only element in DLL
             head = tail = newNode;
             return;
         }
