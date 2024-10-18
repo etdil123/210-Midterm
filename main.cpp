@@ -53,26 +53,44 @@ public:
             return;
         }
 
+        // creating pointer to a Node called temp and assigning the head to it
+        // temp will be pointer to traverse the DLL
         Node* temp = head;
+        // Iterating through each position 
         for (int i = 0; i < position && temp; ++i)
+            // moving the DLL forward by setting temp equal to the next pointer in the DLL
             temp = temp->next;
 
+        // If temp is null - the iteration went too far and the user entered a position outside scope of DLL
         if (!temp) {
             cout << "Position exceeds list size. Node not inserted.\n";
+            // Delete dynamically allocated node and return
             delete newNode;
             return;
         }
+        // At this point temp has iterated through the DLL to the point of insertion
 
+        // INSERTION: because temp has next and prev pointer of the node before we want newNode to be inserted after temp and before temp->next
+        // Assigning the next node of newNode to be temp next node
         newNode->next = temp->next;
+        // Assigning the previous node of newNode to be the temp previous node
         newNode->prev = temp;
+        // If there is non-null pointer at the node following temp
         if (temp->next)
+            // Set the pointer of the next node's previous node to our newNode
+            // This will link newNode and the next node in the DLL
             temp->next->prev = newNode;
+        // else it is the end and in that case set tail to the newNode
         else
             tail = newNode;
+        // temp is pointing to the node before where we want to insert - set the node before next pointer to newNode
+        // this adds newNode after the temp node which is pointing one element before where newNode now resides
         temp->next = newNode;
     }
-
+    // Function delete_val: Returns nothing and takes in a value that we will be searching for
+    // function traverses DLL - if it finds the user-inputted value it deletes the node - else it just returns doing nothing
     void delete_val(int value) {
+        // if there are no elements (head is null) return 
         if (!head) return;
 
         Node* temp = head;
