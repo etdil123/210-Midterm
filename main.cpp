@@ -309,17 +309,18 @@ public:
 
 int main() {
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
-
+    cout << endl;
+    
     DoublyLinkedList dllExample;
 
     dllExample.push_back(10);
     dllExample.push_back(2);
     dllExample.push_back(3);
 
-    //dllExample.print();
+    cout << "Print from Head Normal: " << endl;
+    dllExample.print();
+    cout << "\nPrint from Head - Every other Element!: " << endl;
     dllExample.every_other_element();
     
-
-
     return 0;
 }
