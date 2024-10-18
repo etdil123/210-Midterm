@@ -182,81 +182,127 @@ public:
     // push_front returns nothing and adds the user inputted value node to the beginning of DLL
     void push_front(int v) {
         Node* newNode = new Node(v);
+        // If there is no head - no elements
         if (!head)
             head = tail = newNode;
         else {
+            // set the newNode to before the head
             newNode->next = head;
+            // set the next node to newNode to newNode
             head->prev = newNode;
+            // now move head to newNode
             head = newNode;
         }
     }
-    
+    // returns nothing and removes first element in DLL
     void pop_front() {
-
+        // if there is no head - no values in DLL
         if (!head) {
             cout << "List is empty." << endl;
             return;
         }
-
+        
         Node * temp = head;
-
+        
         if (head->next) {
+            // set head equal what head is pointing to
             head = head->next;
+            // set the previous pointer to null to remove first element
             head->prev = nullptr;
         }
         else
+            // else no elements
             head = tail = nullptr;
         delete temp;
     }
-
+    // returns nothing and removes last element in DLL
     void pop_back() {
+        // if there is no tail - DLL is empty nothing to delete
         if (!tail) {
             cout << "List is empty." << endl;
             return;
         }
         Node * temp = tail;
-
+    
         if (tail->prev) {
+            // tail is set to the element before it
             tail = tail->prev;
+            // nullptr to the what tail did point to - removing element
             tail->next = nullptr;
         }
         else
             head = tail = nullptr;
+            // delete temp
         delete temp;
     }
-
+    // Destructor destroys all nodes
     ~DoublyLinkedList() {
+        // while head is valid
         while (head) {
+            // go through and delete each dynamically allocated ndoe
             Node* temp = head;
             head = head->next;
             delete temp;
         }
     }
+    // Print goes through DLL printing the integer data at each node
     void print() {
         Node* current = head;
         if (!current) {
             cout << "List is empty." << endl;
             return;
         }
+        // while current is valid and not null
         while (current) {
+            // display to console the data integer at that current node
             cout << current->data << " ";
+            // move to next pointer to go to next element in DLL
             current = current->next;
         }
         cout << endl;
     }
-
+    // Print goes through DLL starting from the tail and traverses printing out data
     void print_reverse() {
         Node* current = tail;
         if (!current) { 
             cout << "List is empty." << endl;
             return;
         }
+        // while current is valid and not null
         while (current) {
+            // display to console data integer at the current node
             cout << current->data << " ";
+            // move the current pointer back to the previous node - reversing the DLL
             current = current->prev;
         }
         cout << endl;
     }
+
+    void every_other_element() {
+        int counter = 1;
+        Node* current = head;
+        if (!current) {
+            cout << "List is empty." << endl;
+            return;
+        }
+        // while current is valid and not null
+        while (current) {
+
+            if (counter % 2 != 0){
+                // display to console the data integer at that current node
+                cout << current->data << " ";
+                // move to next pointer to go to next element in DLL
+                current = current->next;
+            }
+            else
+                // move to next pointer to go to next element in DLL
+                current = current->next;
+
+
+        cout << endl;
+
+    }
+
 };
 
 int main() {
