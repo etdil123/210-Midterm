@@ -92,75 +92,94 @@ public:
     void delete_val(int value) {
         // if there are no elements (head is null) return 
         if (!head) return;
-
+        // get temp pointer
         Node* temp = head;
-        
+        // traverse the DLL while not having the value or not null
         while (temp && temp->data != value)
             temp = temp->next;
-
+        // if temp is null - value wasn't found
         if (!temp) return; 
-
+        // Value IS FOUND
+        // set the previous element before temp equal to what temp is pointing to next
         if (temp->prev)
             temp->prev->next = temp->next;
+        // else the element is the first
         else
+        // set head pointing to the next after temp - removing first element
             head = temp->next; 
-
+        // set element after's prev equal to what is before temp
+        // this removes the next elements prev pointer removing the node to be deleted
         if (temp->next)
             temp->next->prev = temp->prev;
+        // else it is the last element and the tail is set to what is before temp
         else
             tail = temp->prev; 
-
+        // delete dynamically allocated memory avoid leakage
         delete temp;
     }
 
+    // Function delete_pos: Similar to delete_val - but instead of value we want position that we will delete from user
+    // returns nothing
     void delete_pos(int pos) {
+        // Head is null there is nothing to delete
         if (!head) {
             cout << "List is empty." << endl;
             return;
         }
-    
+        // If the position is the front - use a separate pop_front function 
         if (pos == 1) {
             pop_front();
             return;
         }
-    
+        // set temp to head - temp is used to traverse DLL
         Node* temp = head;
-    
+        // Go through each element in DLL 
         for (int i = 1; i < pos; i++){
+            // If temp is null - we went too far
             if (!temp) {
                 cout << "Position doesn't exist." << endl;
                 return;
             }
+            // else continue to iterate using the temp next pointer
             else
                 temp = temp->next;
         }
+        // if at the end temp is null - we went too far out of scope
         if (!temp) {
             cout << "Position doesn't exist." << endl;
             return;
         }
-    
+        // if temp is the last element - use pop_back() function to delete element
         if (!temp->next) {
             pop_back();
             return;
         }
-    
+        // new pointer to previous element
         Node* tempPrev = temp->prev;
+        // use both temps to skip the element at temp
         tempPrev->next = temp->next;
+        // set element in front of temp to what's before temp 
         temp->next->prev = tempPrev;
         delete temp;
     }
-
+    // push_back returns nothing
+    // used to add element to end of DLL
     void push_back(int v) {
+        // newNode to store user inputted data
         Node* newNode = new Node(v);
+        // If there is no tail - no elements in list - set head and tail to newNode adding it in
         if (!tail)
             head = tail = newNode;
         else {
+            // set the tail's next pointer to newNode - adding it after the last element
             tail->next = newNode;
+            // set newNode's previous pointer to the tail - connecting the last element to the one before
             newNode->prev = tail;
+            // tail is now newNode 
             tail = newNode;
         }
     }
-    
+    // push_front returns nothing and adds the user inputted value node to the beginning of DLL
     void push_front(int v) {
         Node* newNode = new Node(v);
         if (!head)
