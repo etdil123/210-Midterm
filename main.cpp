@@ -277,8 +277,10 @@ public:
         }
         cout << endl;
     }
-
+    // print every other returns nothing
+    // display data element for odd numbers starting at 1 and skips at even numbers - effectively display every other element only
     void every_other_element() {
+        // initializing counter variable to see if it is even or odd to print every other
         int counter = 1;
         Node* current = head;
         if (!current) {
@@ -287,18 +289,18 @@ public:
         }
         // while current is valid and not null
         while (current) {
-
+            // if the counter is an odd number - starting at one - then print 
+            // else it is an even and don't print
             if (counter % 2 != 0){
                 // display to console the data integer at that current node
                 cout << current->data << " ";
-                // move to next pointer to go to next element in DLL
-                current = current->next;
             }
-            else
-                // move to next pointer to go to next element in DLL
-                current = current->next;
-
-
+          
+            // move to next pointer to go to next element in DLL
+            current = current->next;
+            // increment the counter by 1
+            counter++;
+        }
         cout << endl;
 
     }
@@ -308,6 +310,16 @@ public:
 int main() {
     cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
 
+    DoublyLinkedList dllExample;
+
+    dllExample.push_back(10);
+    dllExample.push_back(2);
+    dllExample.push_back(3);
+
+    //dllExample.print();
+    dllExample.every_other_element();
     
+
+
     return 0;
 }
